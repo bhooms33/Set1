@@ -1,0 +1,1833 @@
+package CodeReview;
+import java.util.Scanner;
+public class Dish {
+
+	// Members
+	
+
+
+	private int dishid;
+	private String dishname;
+	private int dishprice;
+	private int dishrating;
+	// Constructors 
+
+	Dish() {
+		
+	}
+	
+	/**
+	 * @param dishname
+	 * @param dishprice
+	 */
+	public Dish(String dishname, int dishprice) {
+		super();
+		this.dishname = dishname;
+		this.dishprice = dishprice;
+	}
+	
+	Dish(int dishID, String dishName, int dishrating,int dishPrice) {
+		this.dishid = dishID;
+		this.dishname = dishName;
+		this.dishprice = dishPrice;
+		this.dishrating=dishrating;
+	}
+
+	public int getDishid() {
+		return dishid;
+	}
+
+	public void setDishid(int dishid) {
+		this.dishid = dishid;
+	}
+
+	public String getDishname() {
+		return dishname;
+	}
+
+	public void setDishname(String dishname) {
+		this.dishname = dishname;
+	}
+
+	public int getDishprice() {
+		return dishprice;
+	}
+
+	public void setDishprice(int dishprice) {
+		this.dishprice = dishprice;
+	}
+
+	public int getDishrating() {
+		return dishrating;
+	}
+
+	public void setDishrating(int dishrating) {
+		this.dishrating = dishrating;
+	}
+
+	@Override
+	public String toString() {
+		return "Dish Id => " + this.getDishid() + ", Dish Name => " + this.getDishname() + ", Dish Rating => " + this.getDishrating() + 
+				", Dish Price => "+ this.getDishprice();
+	}
+	
+	
+	
+	// Setters
+	
+	// Getters
+static Scanner sc = new Scanner(System.in);
+	
+	public static void dishDetails(Dish[] details,int count)
+	{
+		System.out.println("enter dish id");
+		int dishid=intValidate();
+		System.out.println("enter dish name");
+		String dishname=sc.next();
+		dishname=stringValidate(dishname);
+		System.out.println("enter rating");
+		
+		int dishrating=intValidate();
+		System.out.println("enter price");
+		//int dishprice=sc.nextInt();
+		int dishprice=intValidate();
+		details[count] =new Dish(dishid,dishname,dishrating,dishprice);
+	}
+	
+	public static void printDishDetails(Dish dish) {
+		System.out.println("Dish Id => " + dish.getDishid() + ", Dish Name => " + dish.getDishname() + ", Dish Rating => " + dish.getDishrating() + 
+				", Dish Price => "+ dish.getDishprice());
+	}
+	public static void displayPrice(Dish[] details,int count)
+	{
+		for (int i=0; i<details.length; i++ ) {
+			if (details[i].getDishprice() < 200) {
+				//System.out.println(details[i].toString());
+				printDishDetails(details[i]);
+			}
+		}
+	}
+	public static void sortByName(Dish[] details,int count)
+	{
+		int l=details.length;
+		for(int j=1;j<l;j++)
+		{
+			Dish key=details[j];
+			int i=j-1;
+			while ((i > -1) && (details[i].getDishname().compareTo(key.getDishname()) > 0)) {
+				details [i+1] = details [i];
+				i--;
+			}
+			details [i+1] = key ;
+		}
+		
+		for (int i=0; i<l; i++) {
+			printDishDetails(details[i]);
+		}
+		
+	}
+	public static void displayByRating(Dish[] details,int count)
+	{
+		for (int i=0; i<details.length; i++ ) {
+			if (details[i].getDishrating() >= 5 && details[i].getDishrating() <=10) {
+				//System.out.println(details[i].toString());
+				printDishDetails(details[i]);
+			}
+		}
+	}
+	public static void main(String[] args) {
+		
+    //Dish[] details=new Dish[10];
+    System.out.println("enter no of dishes");
+    int n = sc.nextInt();
+    Dish[] details = new Dish[n];
+    
+    int choice=0,count=0;
+    do
+    {
+    	System.out.println("1.Enter dish details\n"
+    			+ "2.Display all dishes whose price is less than 200\n"
+    			+ "3.Display dish details acrdng to descending order of name\n"
+    			+ "4.Display dishes whose rating is more than 5 and less than\n");
+    	choice =intValidate();
+    	switch(choice)
+    	{
+    	case 1:
+    		dishDetails(details,count);
+    		count++;
+    		break;
+    	case 2:
+    		displayPrice(details,count);
+    		break;
+    	case 3:
+    		sortByName(details,count);
+    		break;
+    	case 4:
+    		displayByRating(details,count);
+    		break;
+    	}
+    }while(true);
+	}
+private static int intValidate() {
+
+	int data = 0;
+	boolean validation = false;
+	while (validation == false) {
+		if (sc.hasNextInt()) {
+			data = sc.nextInt();
+			validation = true;
+		} else if (!sc.hasNextInt()) {
+			System.out.println("you didn't type an integer value ! please type an integer");
+			sc.next();
+		}
+	}
+	return data;
+}
+/*private static double doubleValidate() {
+
+	double data = 0;
+	boolean validation = false;
+	while (validation == false) {
+		if (sc.hasNextDouble()) {
+			data = sc.nextDouble();
+			validation = true;
+		} else if (!sc.hasNextDouble()) {
+			System.out.println("you didn't type double value ! please type valid input");
+			sc.next();
+		}
+	}
+	return data;
+}
+*/
+
+
+private static String stringValidate(String data) {
+
+	while (!data.matches("[a-zA-Z\\s]+")) {
+		if (!data.isEmpty()) {
+			System.out.println("Please retype the alphabetical string");
+		}
+		data = sc.nextLine();
+	}
+	return data;
+}
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+package CodeReview;
+
+import java.util.Scanner;
+
+public class Problem01 {
+	static int l1 = 0;
+
+	public static void main(String[] args) {
+		Scanner sc = new Scanner(System.in);
+		System.out.println("enter a sentence");
+		String input = sc.nextLine();
+		System.out.println("Do you want to replace space");
+		String flag = sc.nextLine();
+		char ch1 = ' ';
+		if (flag.equalsIgnoreCase("no")) {
+			System.out.println("enter the character to be replaced");
+			ch1 = sc.next().charAt(0);
+		}
+		System.out.println("enter the character with which we need to replace the above character");
+		String ch2 = sc.next();
+		String output = "";
+		for (int i = 0; i < input.length(); i++) {
+			if (input.charAt(i) != ch1) {
+				output = output + input.charAt(i);
+			} else {
+				output = output + ch2;
+			}
+		}
+		System.out.println(output);
+
+		char[] ch = new char[output.length()];
+		for (int i = 0; i < ch.length; i++) {
+			ch[i] = output.charAt(i);
+		}
+		for (int a = 0; a < ch.length; a++) {
+			if (ch[a] >= 'A' && ch[a] <= 'Z') {
+				ch[a] = (char) ((int) ch[a] + 32);
+			}
+		}
+		System.out.println("string in lowercase is: ");
+		for (int a = 0; a < ch.length; a++) {
+			System.out.print(ch[a]);
+		}
+	}
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+package CodeReview;
+
+import java.util.Scanner;
+
+
+
+public class Problem02 {
+	public String name;
+	public int id;
+	public double rate;
+	public double price;
+	static Scanner s = new Scanner(System.in);
+
+	public Problem02(int id2, String name2, double rate2, double price2) {
+		this.id = id2;
+		this.name = name2;
+		this.rate = rate2;
+		this.price = price2;
+	}
+	
+	public Problem02() {
+		// TODO Auto-generated constructor stub
+	}
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+	
+	public String getName() {
+		if (name == null) {
+			return null;
+		}
+		return name;
+	}
+
+	public void setName(String name) {
+		if (name.isEmpty()) {
+			throw new NullPointerException("name");
+		}
+		this.name = name;
+	}
+	
+	public double getRate() {
+		return rate;
+	}
+
+	public void setRate(int rate) {
+		this.rate = rate;
+	}
+	
+	public double getPrice() {
+		return price;
+	}
+
+	public void setPrice(int price) {
+		this.price = price;
+	}
+	private static double doubleValidate() {
+
+		int data = 0;
+		boolean validation = false;
+		while (validation == false) {
+			if (s.hasNextDouble()) {
+				data = s.nextInt();
+				validation = true;
+			} else if (!s.hasNextDouble()) {
+				System.out.println("you didn't type an Double value ! please type an integer");
+				s.next();
+			}
+		}
+		return data;
+	}
+
+	private static int intValidate() {
+
+		int data = 0;
+		boolean validation = false;
+		while (validation == false) {
+			if (s.hasNextInt()) {
+				data = s.nextInt();
+				validation = true;
+			} else if (!s.hasNextInt()) {
+				System.out.println("you didn't type an integer value ! please type an integer");
+				s.next();
+			}
+		}
+		return data;
+	}
+
+	private static int checkIfPositive(int integer) {
+		while (integer < 0) {
+			System.out.println("you didn't type positive value ! please type positive integer");
+			integer = s.nextInt();
+		}
+		return integer;
+	}
+
+	private static double checkIfPositive(double integer) {
+		while (integer < 0) {
+			System.out.println("you didn't type positive value ! please type positive integer");
+			integer = s.nextDouble();
+		}
+		return integer;
+	}
+	private static String stringValidate(String data) {
+
+		while (!data.matches("[a-zA-Z\\s]+")) {
+			if (!data.isEmpty()) {
+				System.out.println("Please give alphabetical input");
+			}
+			data = s.nextLine();
+		}
+		return data;
+	}
+	private static Problem02[] addDetails(int id, String name, double rate,double price,Problem02[] details) {
+		Problem02 res[] = new Problem02[details.length + 1];
+		for (int i = 0; i < details.length; i++) {
+			res[i] = details[i];
+		}
+		res[details.length] = new Problem02(id, name,rate,price);
+		return res;
+	}
+
+public static void main(String[] args) {
+		int id;
+		double rate,price;
+		String name=null;
+		System.out.println("Enter number dishes");
+		int dishes = intValidate();
+		dishes=checkIfPositive(dishes);
+		String N[]= new String[dishes];
+		Problem02 details[] = {};
+		for (;;) {
+			int ch;
+			System.out.println(
+					"enter your choice \n 1. Add Dishes Details \n 2. Display All dishes whose price is less than 200 \n 3. Display dishes in descending \n 4. Display All dishes whose Rate>5 and <10\n 5.Exit ");
+			ch = intValidate();
+			switch (ch) {
+			case 1: {
+				
+				for (int i = 0; i < dishes; i++) {
+					System.out.println("Enter id of the dish ");
+					id = intValidate();
+					id=checkIfPositive(id);
+					System.out.println("Enter name of the dish ");
+					name = s.nextLine();
+					name = stringValidate(name);
+					N[i]=name;
+					System.out.println("Enter the rate of the dish ");
+					rate = doubleValidate();
+					rate=checkIfPositive(rate);
+					System.out.println("Enter the price of the dish ");
+					price = doubleValidate();
+					details = addDetails(id, name, rate, price, details);
+					
+				}
+
+				break;
+			}
+			case 2: {
+				System.out.println("Displaying all the dishes whose price is less than 200");
+				for (int i = 0; i < details.length; i++) {
+				if(details[i]. getPrice()<200) {
+					System.out.println("Dishes ID: " + details[i].getId());
+					System.out.println("Dishes name : " + details[i].getName());
+					System.out.println("Details Rate: " + details[i].getRate());
+					System.out.println("Details Price: " + details[i].getPrice());
+				}
+				}
+				break;
+				}
+			case 3:{
+				System.out.println("Displaying name in descending order");
+				
+				for(int i=1;i<N.length;i++)
+				{
+					int l=N.length;
+					String key=N[i];
+					int j=i-1;
+					while(j>=0&&N[j].length()<key.length())
+					{
+						N[j+1]=N[j];
+						j=j-1;
+					}
+					N[j+1]=key;
+				}
+				for(int i=0;i<details.length;i++)
+				{
+					System.out.println(N[i]);
+				}
+				break;
+			}
+			case 4:
+			{
+				System.out.println("Displaying all the dishes whose rating is more than 5 and less than 10");
+				for (int i = 0; i < details.length; i++) {
+				if(details[i].getRate()>5&&details[i].getRate()<10) {
+					System.out.println("Dishes ID: " + details[i].getId());
+					System.out.println("Dishes name : " + details[i].getName());
+					System.out.println("Details Rate: " + details[i].getRate());
+					System.out.println("Details Price: " + details[i].getPrice());
+				}
+				}
+				break;
+			}
+			case 5:
+				return;
+			default: {
+				System.out.println("invalid input");
+				break;
+			}
+			}
+}
+
+}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+package CodeReview;
+
+import java.util.Scanner;
+
+public class Problem03 {
+	private int id;
+	private String name;
+	private String month;
+	private Boolean[] holiday;
+	static Scanner s = new Scanner(System.in);
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public String getName() {
+		if (name == null) {
+			return null;
+		}
+		return name;
+	}
+
+	public void setName(String name) {
+		if (name.isEmpty()) {
+			throw new NullPointerException("name");
+		}
+		this.name = name;
+	}
+
+	public String getMonth() {
+		if (month == null) {
+			return null;
+		}
+		return month;
+	}
+
+	public void setMonth(String month) {
+		if (month.isEmpty()) {
+			throw new NullPointerException("month");
+		}
+		this.month = month;
+	}
+
+	public Problem03() {
+
+	}
+
+	public Problem03(int id, String name, String month) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.month = month;
+	}
+
+	private static int intValidate() {
+
+		int data = 0;
+		boolean validation = false;
+		while (validation == false) {
+			if (s.hasNextInt()) {
+				data = s.nextInt();
+				validation = true;
+			} else if (!s.hasNextInt()) {
+				System.out.println("you didn't type an integer value ! please type an integer");
+				s.next();
+			}
+		}
+		return data;
+	}
+
+	private static int checkIfPositive(int integer) {
+		while (integer < 0) {
+			System.out.println("you didn't type positive value ! please type positive integer");
+			integer = s.nextInt();
+		}
+		return integer;
+	}
+
+	private static String stringValidate(String data) {
+
+		while (!data.matches("[a-zA-Z\\s]+")) {
+			if (!data.isEmpty()) {
+				System.out.println("Please give alphabetical input");
+			}
+			data = s.nextLine();
+		}
+		return data;
+	}
+
+	private static Problem03[] addDetails(int id, String name, String month, Problem03[] details) {
+		Problem03 res[] = new Problem03[details.length + 1];
+		for (int i = 0; i < details.length; i++) {
+			res[i] = details[i];
+		}
+		res[details.length] = new Problem03(id, name, month);
+		return res;
+	}
+
+	public static void printEventDetails(Problem03 event) {
+		System.out.println("Event Id => " + event.getId() + ", Event Name => " + event.getName() + ", Event Month => "
+				+ event.getMonth());
+	}
+
+	static Boolean SearchString(Problem03[] details, String x) {
+
+		int l = 0, h = details.length - 1;
+		while (l <= h) {
+			int m = l + (h - l) / 2;
+
+			int res = x.compareTo(details[m].getName());
+			if (res == 0) {
+				for (int i = 0; i < 1; i++) {
+					printEventDetails(details[m]);
+				}
+				return true;
+			}
+			if (res > 0)
+				l = m + 1;
+			else
+				h = m - 1;
+		}
+
+		return false;
+	}
+
+	public static void main(String[] args) {
+		int id;
+		String name = null, month = null;
+		boolean holiday;
+		System.out.println("Enter number events");
+		int events = intValidate();
+		events = checkIfPositive(events);
+		String N[] = new String[events];
+		Boolean H[] = new Boolean[events];
+		String Ni[] = new String[events];
+		Problem03[] details = {};
+		for (;;) {
+			int ch;
+			System.out.println(
+					"enter your choice \n 1. Add  Events Details \n 2. Display All events by month \n 3.Display events on national holiday \n 4. Display All events insorted order of thier name \n 5.Search events by its name \n 6. Exit ");
+			ch = intValidate();
+			switch (ch) {
+			case 1: {
+
+				for (int i = 0; i < events; i++) {
+					System.out.println("Enter id of the event ");
+					id = intValidate();
+					id = checkIfPositive(id);
+					System.out.println("Enter name of the event ");
+					name = s.nextLine();
+					name = stringValidate(name);
+					N[i] = name;
+					System.out.println("Enter the month ");
+					month = s.nextLine();
+					month = stringValidate(month);
+					details = addDetails(id, name, month, details);
+					System.out.println("Is it a national holiday? ");
+					s.hasNext();
+					holiday = s.hasNext();
+					H[i] = holiday;
+				}
+
+				break;
+			}
+			case 2: {
+				System.out.println("Displaying the events according to month");
+				System.out.println("First Enter the month");
+				s.nextLine();
+				String m = s.nextLine();
+				m = stringValidate(month);
+				for (int j = 0; j < details.length; j++) {
+					if (details[j].getMonth() == m) {
+						System.out.println("Event ID: " + details[j].getId());
+						System.out.println("Event name : " + details[j].getName());
+						System.out.println("Event month: " + details[j].getMonth());
+
+					}
+				}
+				break;
+			}
+			case 3: {
+				for (int i = 0; i < details.length; i++) {
+					if (H[i] == true) {
+						printEventDetails(details[i]);
+					}
+				}
+				break;
+			}
+			case 4: {
+				System.out.println("Display All events in sorted order of thier name");
+
+				int l = details.length;
+				for (int j = 1; j < l; j++) {
+					Problem03 key = details[j];
+					int i = j - 1;
+					while ((i > -1) && (details[i].getName().compareTo(key.getName()) > 0)) {
+						details[i + 1] = details[i];
+						i--;
+					}
+					details[i + 1] = key;
+				}
+
+				for (int i = 0; i < l; i++) {
+					printEventDetails(details[i]);
+				}
+				break;
+			}
+
+			case 5: {
+				System.out.println("Enter the name to search an event");
+				s.nextLine();
+				String x = s.nextLine();
+				System.out.println(SearchString(details, x));
+
+			}
+
+			}
+		}
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+package CodeReview;
+
+import java.util.Scanner;
+
+public class Problem04Matrix {
+	static Scanner sc =new Scanner(System.in);
+public static void main(String[] args) {
+	System.out.println("enter the row size");
+	int n=sc.nextInt();
+	System.out.println("enter the coloumn size");
+	int m=sc.nextInt();
+	int[][] arr=getMatrix(n,m);
+	int[][] arr1=addOne(arr,n,m);
+	int[][] arr2=swapDiagonal(arr1,n,m);
+	for(int i=0;i<n;i++)
+	{
+		for(int j=0;j<m;j++)
+		{
+			System.out.print(arr2[i][j]+" ");;
+		}
+		System.out.println();
+	}
+
+	
+}
+public static int[][] swapDiagonal(int[][] arr1, int n, int m) {
+	// TODO Auto-generated method stub
+	
+	int temp = arr1[0][0];
+	arr1[0][0] = arr1[0][m-1];
+	arr1[0][m-1] = temp;
+	
+	temp = arr1[n-1][0];
+	arr1[n-1][0] = arr1[n-1][m-1];
+	arr1[n-1][m-1] = temp;
+	
+	return arr1;
+}
+public static int[][] addOne(int[][] arr,int n,int m) {
+	// TODO Auto-generated method stub
+	int rev=0,rem=0;
+	for(int i=0;i<n;i++)
+	{
+		for(int j=0;j<m;j++)
+		{
+			boolean flag = false;
+			if (("" + arr[i][j]).length() == 1) {
+				flag = true;
+			}
+			while(arr[i][j]!=0)
+			{
+				rem=arr[i][j]%10;
+				rev=rev*10+rem;
+				arr[i][j]=arr[i][j]/10;
+			}
+			if (flag) {
+				rev = rev * 10;
+			}
+			arr[i][j]=rev;
+			rev=0;
+			rem=0;
+			arr[i][j]=arr[i][j]+1;
+		}
+	}
+	return arr;
+}
+public static int[][] getMatrix(int n, int m) {
+	// TODO Auto-generated method stub
+	int[][] arr1=new int[n][m];
+	for(int i=0;i<n;i++)
+	{
+		for(int j=0;j<m;j++)
+		{
+			arr1[i][j]=sc.nextInt();
+		}
+	}
+	return arr1;
+}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+package CodeReview;
+
+import java.util.Scanner;
+
+public class Problem05 {
+	private int id;
+	private String name;
+	private String gender;
+	private int mobile;
+	private String address;
+	private String referby;
+	private String testname;
+	private String comments;
+	static Scanner s = new Scanner(System.in);
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public String getName() {
+		if (name == null) {
+			return null;
+		}
+		return name;
+	}
+
+	public void setName(String name) {
+		if (name.isEmpty()) {
+			throw new NullPointerException("name");
+		}
+		this.name = name;
+	}
+
+	public Problem05(int id, String name, String gender, int mobile, String address, String referby, String testname,
+			String comments) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.gender = gender;
+		this.mobile = mobile;
+		this.address = address;
+		this.referby = referby;
+		this.testname = testname;
+		this.comments = comments;
+	}
+
+	public Problem05() {
+		super();
+	}
+
+	public String getGender() {
+		if (gender == null) {
+			return null;
+		}
+		return gender;
+	}
+
+	public void setGender(String gender) {
+		if (gender.isEmpty()) {
+			throw new NullPointerException("gender");
+		}
+		this.gender = gender;
+	}
+
+	public int getMobile() {
+		return mobile;
+	}
+
+	public void setMobile(int mobile) {
+		this.mobile = mobile;
+	}
+
+	public String getAddress() {
+		if (address == null) {
+			return null;
+		}
+		return address;
+	}
+
+	public void setAddress(String address) {
+		if (address.isEmpty()) {
+			throw new NullPointerException("address");
+		}
+		this.address = address;
+	}
+
+	public String getReferby() {
+		if (referby == null) {
+			return null;
+		}
+		return referby;
+	}
+
+	public void setReferby(String referby) {
+		if (referby.isEmpty()) {
+			throw new NullPointerException("referby");
+		}
+		this.referby = referby;
+	}
+
+	public String getTestname() {
+		if (testname == null) {
+			return null;
+		}
+		return testname;
+	}
+
+	public void setTestname(String testname) {
+		if (testname.isEmpty()) {
+			throw new NullPointerException("testname");
+		}
+		this.testname = testname;
+	}
+
+	public String getComments() {
+		if (comments == null) {
+			return null;
+		}
+		return comments;
+	}
+
+	public void setComments(String comments) {
+		if (comments.isEmpty()) {
+			throw new NullPointerException("comments");
+		}
+		this.comments = comments;
+	}
+
+	private static int intValidate() {
+
+		int data = 0;
+		boolean validation = false;
+		while (validation == false) {
+			if (s.hasNextInt()) {
+				data = s.nextInt();
+				validation = true;
+			} else if (!s.hasNextInt()) {
+				System.out.println("you didn't type an integer value ! please type an integer");
+				s.next();
+			}
+		}
+		return data;
+	}
+
+	private static int checkIfPositive(int integer) {
+		while (integer < 0) {
+			System.out.println("you didn't type positive value ! please type positive integer");
+			integer = s.nextInt();
+		}
+		return integer;
+	}
+
+	private static String stringValidate(String data) {
+
+		while (!data.matches("[a-zA-Z\\s]+")) {
+			if (!data.isEmpty()) {
+				System.out.println("Please give alphabetical input");
+			}
+			data = s.nextLine();
+		}
+		return data;
+	}
+
+	private static Problem05[] addDetails(int id, String name, String gender, int mobile, String address,
+			String referby, String testname, String comments, Problem05[] details) {
+		Problem05 res[] = new Problem05[details.length + 1];
+		for (int i = 0; i < details.length; i++) {
+			res[i] = details[i];
+		}
+		res[details.length] = new Problem05(id, name, gender, mobile, address, referby, testname, comments);
+		return res;
+	}
+
+	public static void main(String[] args) {
+		int id, mobile;
+		String name = null, gender = null, address = null, referby = null, testname = null, comments = null;
+
+		System.out.println("Enter number patients");
+		int patient = intValidate();
+		patient = checkIfPositive(patient);
+		Problem05[] details = {};
+		for (;;) {
+			int ch;
+			System.out.println(
+					"enter your choice \n 1. Register  Patient Details \n 2. Update the test details \n 3. Retrieve test details \n 4. Display All events insorted order of thier name \n 5.Search events by its name \n 6. Exit ");
+			ch = intValidate();
+			switch (ch) {
+			case 1: {
+
+				for (int i = 0; i < patient; i++) {
+					System.out.println("Enter id of the patient ");
+					id = intValidate();
+					id = checkIfPositive(id);
+					System.out.println("Enter name of the patient ");
+					name = s.nextLine();
+					name = stringValidate(name);
+					System.out.println("Enter mobile of the patient ");
+					mobile = intValidate();
+					mobile = checkIfPositive(mobile);
+					System.out.println("Enter gender of the patient ");
+					gender = s.nextLine();
+					gender = stringValidate(gender);
+					System.out.println("Enter address of the patient ");
+					address = s.nextLine();
+					address = stringValidate(address);
+					System.out.println("Enter referby of the patient ");
+					referby = s.nextLine();
+					referby = stringValidate(referby);
+					System.out.println("Enter testname of the patient ");
+					testname = s.nextLine();
+					testname = stringValidate(testname);
+					System.out.println("Enter comments of the patient ");
+					comments = s.nextLine();
+					comments = stringValidate(comments);
+					details = addDetails(id, name, gender, mobile, address, referby, testname, comments, details);
+
+				}
+				break;
+			}
+			case 2: {
+				for (int i = 0; i < details.length; i++) {
+					System.out.println("Enter the comments");
+					s.nextLine();
+					details[i].comments = s.nextLine();
+					System.out.println("Patitent ID: " + details[i].getId());
+					System.out.println("Patitent name : " + details[i].getName());
+					System.out.println("Patitent Comments: " + details[i].getComments());
+				}
+				break;
+			}
+			case 3:{
+				System.out.println("Enter the patient name for whom to retieve data");
+				String n=s.next();
+				for (int j = 0; j < details.length; j++) {
+					if(n==details[j].name) {
+						System.out.println("Patitent ID: " + details[j].getId());
+						System.out.println("Patitent Name : " + details[j].getName());
+						System.out.println("Patitent Gender : " + details[j].getGender());
+						System.out.println("Patitent Mobile : " + details[j].getMobile());
+						System.out.println("Patitent Address : " + details[j].getAddress());
+						System.out.println("Patitent Referby : " + details[j].getReferby());
+						System.out.println("Patitent Testname : " + details[j].getTestname());
+						System.out.println("Patitent Comments: " + details[j].getComments());
+					}
+				}
+				break;
+			}
+			}
+		}
+	}
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+package CodeReview;
+
+import java.util.Scanner;
+//MatrixSumOfConsecutiveRows
+public class Problem06MatrixSumOfConsecutiveRows {
+	static Scanner sc=new Scanner(System.in);
+public static void main(String[] args) {
+	System.out.println("enter the siz of the matrix");
+	int n=sc.nextInt();
+	int[][] arr=new int[n][n];
+	int[][] arr1=getMatrix(arr,n);
+	int[][] arr2=modifyMatrix(arr1,n);
+	printMatrix(arr2,n);
+}
+public static void printMatrix(int[][] arr2, int n) {
+	// TODO Auto-generated method stub
+	for(int i=0;i<n;i++)
+	{
+		for(int j=0;j<n;j++)
+		{
+			System.out.print(arr2[i][j]+" ");
+		}
+		System.out.println();
+	}
+	
+}
+public static int[][] modifyMatrix(int[][] arr1, int n) {
+	// TODO Auto-generated method stub
+	for(int i=0;i<n;i++)
+	{
+		int temp=0;
+		for(int j=0;j<n;j++)
+		{
+			int k=j;
+			while(k<n)
+			{
+				temp=temp+arr1[i][k];
+				k++;
+			}
+			arr1[i][j]=temp;
+			temp=0;
+		}
+	}
+	return arr1;
+}
+public static int[][] getMatrix(int[][] arr, int n) {
+	System.out.println("enter the elements");
+	for(int i=0;i<n;i++)
+	{
+		for(int j=0;j<n;j++)
+		{
+			arr[i][j]=sc.nextInt();
+		}
+	}
+	return arr;
+}
+}
+
+
+
+
+
+
+
+
+
+
+
+package CodeReview;
+
+import java.util.Scanner;
+
+public class Problem07MatrixSwapDiagonalwitSpecificRow {
+	static Scanner sc=new Scanner(System.in);
+public static void main(String[] args) {
+	System.out.println("enter the siz of the matrix");
+	int n=sc.nextInt();
+	int[][] arr=new int[n][n];
+	int[][] arr1=getMatrix(arr,n);
+	System.out.println("Enter the row!");
+	int row=sc.nextInt();
+	int[][] arr2=modifyMatrix(arr1,n,row);
+	printMatrix(arr2,n);
+}
+public static void printMatrix(int[][] arr2, int n) {
+	// TODO Auto-generated method stub
+	for(int i=0;i<n;i++)
+	{
+		for(int j=0;j<n;j++)
+		{
+			System.out.print(arr2[i][j]+" ");
+		}
+		System.out.println();
+	}
+	
+}
+public static int[][] modifyMatrix(int[][] arr1, int n,int row) {
+	// TODO Auto-generated method stub
+	int k=0,l=0,temp=0;
+		for (int j = 0; j < arr1.length; j++) {
+			
+			if(k<n&&l<n) {
+			temp=temp+arr1[k][l];
+			k++;
+			l++;
+			}
+			arr1[row][j]=temp;
+	}
+	
+	
+	
+	
+	return arr1;
+}
+public static int[][] getMatrix(int[][] arr, int n) {
+	System.out.println("enter the elements");
+	for(int i=0;i<n;i++)
+	{
+		for(int j=0;j<n;j++)
+		{
+			arr[i][j]=sc.nextInt();
+		}
+	}
+	return arr;
+}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+package CodeReview;
+
+import java.util.Scanner;
+
+public class Problem08 {
+	private int id;
+	private String name;
+	private String branch;
+	private float avgmarks;
+	static Scanner s = new Scanner(System.in);
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public String getName() {
+		if (name == null) {
+			return null;
+		}
+		return name;
+	}
+
+	public void setName(String name) {
+		if (name.isEmpty()) {
+			throw new NullPointerException("name");
+		}
+		this.name = name;
+	}
+
+	public String getBranch() {
+		if (branch == null) {
+			return null;
+		}
+		return branch;
+	}
+
+	public void setBranch(String branch) {
+		if (branch.isEmpty()) {
+			throw new NullPointerException("branch");
+		}
+		this.branch = branch;
+	}
+
+	public float getAvgmarks() {
+		return avgmarks;
+	}
+
+	public void setAvgmarks(int avgmarks) {
+		this.avgmarks = avgmarks;
+	}
+
+	public Problem08() {
+
+	}
+
+	public Problem08(int id, String name, String branch, float avgmarks) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.branch = branch;
+		this.avgmarks = avgmarks;
+	}
+
+	private static int intValidate() {
+
+		int data = 0;
+		boolean validation = false;
+		while (validation == false) {
+			if (s.hasNextInt()) {
+				data = s.nextInt();
+				validation = true;
+			} else if (!s.hasNextInt()) {
+				System.out.println("you didn't type an integer value ! please type an integer");
+				s.next();
+			}
+		}
+		return data;
+	}
+
+	private static float floatValidate() {
+
+		float data = 0;
+		boolean validation = false;
+		while (validation == false) {
+			if (s.hasNextFloat()) {
+				data = s.nextFloat();
+				validation = true;
+			} else if (!s.hasNextFloat()) {
+				System.out.println("you didn't type an float value value ! please type an integer");
+				s.next();
+			}
+		}
+		return data;
+	}
+
+	private static int checkIfPositive(int integer) {
+		while (integer < 0) {
+			System.out.println("you didn't type positive value ! please type positive integer");
+			integer = s.nextInt();
+		}
+		return integer;
+	}
+
+	private static String stringValidate(String data) {
+
+		while (!data.matches("[a-zA-Z\\s]+")) {
+			if (!data.isEmpty()) {
+				System.out.println("Please give alphabetical input");
+			}
+			data = s.nextLine();
+		}
+		return data;
+	}
+
+	private static Problem08[] addDetails(int id, String name, String branch, float avgmarks, Problem08[] details) {
+		Problem08 res[] = new Problem08[details.length + 1];
+		for (int i = 0; i < details.length; i++) {
+			res[i] = details[i];
+		}
+		res[details.length] = new Problem08(id, name, branch, avgmarks);
+		return res;
+	}
+
+	private static void printEventDetails(Problem08 students) {
+		System.out.println(
+				"Student Id => " + students.getId() + ", Student Name => " + students.getName() + ", Student branch => "
+						+ students.getBranch() + ", Student averaveMarks => " + students.getAvgmarks());
+	}
+
+	public static void main(String[] args) {
+		int id;
+		String name = null, branch = null;
+		float avgmarks;
+		System.out.println("Enter number students");
+		int students = intValidate();
+		students = checkIfPositive(students);
+		int N[] = new int[students];
+		Problem08[] details = {};
+		for (;;) {
+			int ch;
+			System.out.println(
+					"enter your choice \n 1. Add  Students Details \n 2. Display All students \n 3. Display Branch of student by name \n 4. Bubble sort \n 5. Append degree \n 6. Exit ");
+			ch = intValidate();
+			switch (ch) {
+			case 1:
+
+				for (int i = 0; i < students; i++) {
+					System.out.println("Enter id of the event ");
+					id = intValidate();
+					id = checkIfPositive(id);
+					//N[i] = id;
+					System.out.println("Enter name of the student ");
+					name = s.nextLine();
+					name = stringValidate(name);
+					System.out.println("Enter branch of the student ");
+					branch = s.nextLine();
+					branch = stringValidate(branch);
+					System.out.println("Enter average marks of the student ");
+					avgmarks = floatValidate();
+					details = addDetails(id, name, branch, avgmarks, details);
+
+				}
+				break;
+
+			case 2:
+				for (int j = 0; j < details.length; j++) {
+					printEventDetails(details[j]);
+				}
+				break;
+
+			case 3:
+				System.out.println("Enter the name if student");
+				s.nextLine();
+				String m = s.nextLine();
+				for (int j = 0; j < details.length; j++) {
+					if (details[j].getName().equals(m)) {
+						System.out.println("Student branch => " + details[j].getBranch());
+					}
+				}
+				break;
+
+			case 4:
+				System.out.println("sorting the studnets");
+				buublesort(details);
+				for (int j = 0; j < details.length; j++) {
+					printEventDetails(details[j]);
+				}
+				break;
+
+			case 5:
+				System.out.println("Appending degree");
+				appendDegree(details, details.length);
+				for (int j = 0; j < details.length; j++) {
+					printEventDetails(details[j]);
+				}
+				break;
+			default: {
+				System.out.println("invalid input");
+				break;
+			}
+			}
+		}
+	}
+
+	private static Problem08[] appendDegree(Problem08[] details, int count) {
+		// TODO Auto-generated method stub
+		for (int i = 0; i < count; i++) {
+			details[i].setBranch(details[i].getBranch() + " degree");
+		}
+		return details;
+	}
+
+	private static Problem08[] buublesort(Problem08[] details) {
+		// TODO Auto-generated method stub
+		int count=details.length;
+		for (int i = 0; i < count; i++) {
+			Problem08 temp = details[i];
+			for (int j = i + 1; j < count; j++) {
+				if (details[i].getId() > details[j].getId()) {
+					temp = details[i];
+					details[i] = details[j];
+					details[j] = temp;
+				}
+			}
+		}
+		return details;
+	}
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+package CodeReview;
+
+import java.util.Scanner;
+
+public class Problem09MatrixSubtractColumns {
+	static Scanner sc=new Scanner(System.in);
+public static void main(String[] args) {
+	System.out.println("enter the siz of the matrix");
+	int n=sc.nextInt();
+	int[][] arr=new int[n][n];
+	int[][] arr1=getMatrix(arr,n);
+	System.out.println("Enter the first column");
+	int c1=sc.nextInt();
+	System.out.println("Enter the next column");
+	int c2=sc.nextInt();
+	int[][] arr2=modifyMatrix(arr1,n,c1,c2);
+	printMatrix(arr2,n);
+}
+public static void printMatrix(int[][] arr2, int n) {
+	// TODO Auto-generated method stub
+	for(int i=0;i<n;i++)
+	{
+		for(int j=0;j<n;j++)
+		{
+			System.out.print(arr2[i][j]+" ");
+		}
+		System.out.println();
+	}
+	
+}
+public static int[][] modifyMatrix(int[][] arr1, int n,int c1,int c2) {
+	// TODO Auto-generated method stu
+	for (int i = 0; i < arr1.length; i++) {
+		int temp=0;
+			temp=arr1[i][c1-1]-arr1[i][c2-1];
+			if(temp<0) {
+				arr1[i][c2-1]=0;
+			}
+			else {
+				arr1[i][c2-1]=temp;
+			}
+			}
+	
+	
+	
+	
+	return arr1;
+}
+public static int[][] getMatrix(int[][] arr, int n) {
+	System.out.println("enter the elements");
+	for(int i=0;i<n;i++)
+	{
+		for(int j=0;j<n;j++)
+		{
+			arr[i][j]=sc.nextInt();
+		}
+	}
+	return arr;
+}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+package CodeReview;
+
+import java.util.Scanner;
+
+public class Problem10MatrixSqrIfAdditionOfIndexODD {
+	static Scanner sc=new Scanner(System.in);
+public static void main(String[] args) {
+	System.out.println("enter the siz of the matrix");
+	int n=sc.nextInt();
+	int[][] arr=new int[n][n];
+	int[][] arr1=getMatrix(arr,n);
+	int[][] arr2=modifyMatrix(arr1,n);
+	printMatrix(arr2,n);
+}
+public static void printMatrix(int[][] arr2, int n) {
+	// TODO Auto-generated method stub
+	for(int i=0;i<n;i++)
+	{
+		for(int j=0;j<n;j++)
+		{
+			System.out.print(arr2[i][j]+" ");
+		}
+		System.out.println();
+	}
+	
+}
+public static int[][] modifyMatrix(int[][] arr1, int n) {
+	// TODO Auto-generated method stu
+	for (int i = 0; i < arr1.length; i++) {
+		for (int j = 0; j < arr1.length; j++) {
+			if((i+j)%2!=0) {
+				arr1[i][j]=arr1[i][j]*arr1[i][j];
+			}
+		}
+	}
+	
+	
+	
+	
+	return arr1;
+}
+public static int[][] getMatrix(int[][] arr, int n) {
+	System.out.println("enter the elements");
+	for(int i=0;i<n;i++)
+	{
+		for(int j=0;j<n;j++)
+		{
+			arr[i][j]=sc.nextInt();
+		}
+	}
+	return arr;
+}
+}
+
+
+
+
+
+
+
+
+
+
+
+package CodeReview;
+
+import java.util.Scanner;
+
+public class Problem11MatrixSumOfPreviousRow {
+	static Scanner sc = new Scanner(System.in);
+
+	public static void main(String[] args) {
+		System.out.println("enter the row siz of the matrix");
+		int n = sc.nextInt();
+		System.out.println("enter the column siz of the matrix");
+		int m = sc.nextInt();
+		int[][] arr = new int[n][m];
+		int[][] arr1 = getMatrix(arr, n, m);
+		int[][] arr2 = modifyMatrix(arr1, n, m);
+		printMatrix(arr2, n,m);
+	}
+
+	public static void printMatrix(int[][] arr2, int n,int m) {
+		// TODO Auto-generated method stub
+		for (int i = 0; i < n; i++) {
+			for (int j = 0; j < m; j++) {
+				System.out.print(arr2[i][j] + " ");
+			}
+			System.out.println();
+		}
+
+	}
+
+	public static int[][] modifyMatrix(int[][] arr1, int n, int m) {
+		// TODO Auto-generated method stub
+		for (int i = 0; i < n; i++) {
+			int temp = 0;
+			for (int j = 0; j < m; j++) {
+				int k = j;
+				if (k < m) {
+					temp = arr1[i][k] + temp;
+					k++;
+				}
+				arr1[i][j] = temp;
+			}
+
+		}
+
+		return arr1;
+	}
+
+	public static int[][] getMatrix(int[][] arr, int n, int m) {
+		System.out.println("enter the elements");
+		for (int i = 0; i < n; i++) {
+			for (int j = 0; j < m; j++) {
+				arr[i][j] = sc.nextInt();
+			}
+		}
+		return arr;
+	}
+}
+
+
+
+
+
+
+
+
+
+package CodeReview;
+
+
+import java.util.Scanner;
+
+public class Problem12FindMinInROWandSWAP {
+	static Scanner sc = new Scanner(System.in);
+
+	public static void main(String[] args) {
+		System.out.println("enter the row siz of the matrix");
+		int n = sc.nextInt();
+		int[][] arr = new int[n][n];
+		int[][] arr1 = getMatrix(arr, n);
+		System.out.println("Enter row1");
+		int r1=sc.nextInt();
+		System.out.println("Enter row2");
+		int r2=sc.nextInt();
+		
+		int min1 = findsmallest(arr1, n,r1);
+		System.out.println("Minimum value in row1 entered is"+min1);
+		int min2 = findsmallest(arr1, n,r2);
+		System.out.println("Minimum value in row1 entered is"+min2);
+		int[][] arr2=modifyMatrix(arr1,n,min1,min2,r1,r2);
+		printMatrix(arr2, n);
+	}
+
+	private static int[][] modifyMatrix(int[][] arr1, int n, int min1, int min2,int r1,int r2) {
+		// TODO Auto-generated method stub
+	
+			for (int j = 0; j < arr1.length; j++) {
+				if(arr1[r1][j]==min1&& arr1[r2][j]==min2) {
+					int temp=arr1[r1][j];
+					arr1[r1][j]=arr1[r2][j];
+					arr1[r2][j]=temp;
+					
+				}
+			}
+		
+		
+		return arr1;
+	}
+
+	public static void printMatrix(int[][] arr2, int n) {
+		// TODO Auto-generated method stub
+		for (int i = 0; i < n; i++) {
+			for (int j = 0; j < n; j++) {
+				System.out.print(arr2[i][j] + " ");
+			}
+			System.out.println();
+		}
+
+	}
+
+	public static int findsmallest(int[][] arr1, int n,int r) {
+		// TODO Auto-generated method stub
+		int min=arr1[r][0];
+		for (int i = 0; i < arr1.length; i++) {
+			if(arr1[r][i]<min) {
+				min=arr1[r][i];
+			}
+				
+		}
+
+		return min;
+	}
+
+	public static int[][] getMatrix(int[][] arr, int n) {
+		System.out.println("enter the elements");
+		for (int i = 0; i < n; i++) {
+			for (int j = 0; j < n; j++) {
+				arr[i][j] = sc.nextInt();
+			}
+		}
+		return arr;
+	}
+}
